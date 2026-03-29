@@ -21,9 +21,19 @@ namespace SynthPay.Ledger.Worker.Consumers
         {
             var evento = context.Message;
 
+            var alreadyProcessed = await _dbContext.ProcessedTransactions
+                .AnyAsync(p => p.TransactionId == evento.TransactionId);
+
+            if (alreadyProcessed)
+            {
+                _logger.LogWarning("ALERTA: Transação {TransactionId} já foi processada anteriormente. Ignorando evento duplicado para evitar fraude.", evento.TransactionId);
+                return;
+            }
+
             _logger.LogInformation("Processando crédito de R$ {Amount} para a conta {AccountId}...", evento.Amount, evento.AccountId);
 
-            var balance = await _dbContext.Balances.FirstOrDefaultAsync(b => b.AccountId == evento.AccountId);
+            var balance = await _dbContext.Balances
+                .FirstOrDefaultAsync(b => b.AccountId == evento.AccountId);
 
             if (balance == null)
             {
@@ -32,6 +42,9 @@ namespace SynthPay.Ledger.Worker.Consumers
             }
 
             balance.Credit(evento.Amount);
+
+            var processedRecord = new ProcessedTransaction(evento.TransactionId);
+            await _dbContext.ProcessedTransactions.AddAsync(processedRecord);
 
             await _dbContext.SaveChangesAsync();
 
