@@ -1,0 +1,6 @@
+@SynthPay.Transactions.Api_HostAddress = http://localhost:5139
+
+GET {{SynthPay.Transactions.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

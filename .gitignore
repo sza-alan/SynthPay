@@ -1,0 +1,29 @@
+# ==========================================
+# .NET / Visual Studio
+# ==========================================
+bin/
+obj/
+.vs/
+*.user
+*.userosscache
+*.sln.docstates
+TestResults/
+
+# ==========================================
+# Banco de Dados Local (SQLite)
+# ==========================================
+*.db
+*.db-shm
+*.db-wal
+
+# ==========================================
+# Arquivos de Sistema (Windows/Mac)
+# ==========================================
+Thumbs.db
+.DS_Store
+
+# ==========================================
+# Configurações de Usuário e Segredos
+# ==========================================
+appsettings.Development.json
+*.env

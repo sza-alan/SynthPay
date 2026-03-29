@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.34928.147
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SynthPay.Transactions.Domain", "SynthPay.Transactions.Domain\SynthPay.Transactions.Domain.csproj", "{4A1D72B7-B5CF-45E9-A2B0-6DB8D8B79587}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SynthPay.Transactions.Application", "SynthPay.Transactions.Application\SynthPay.Transactions.Application.csproj", "{D4C50FF5-7C4C-4D6F-815A-7CC53B1E6BE1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SynthPay.Transactions.Infrastructure", "SynthPay.Transactions.Infrastructure\SynthPay.Transactions.Infrastructure.csproj", "{D3238649-92BB-469E-80C9-FC7381FFD1F6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SynthPay.Transactions.Api", "SynthPay.Transactions.Api\SynthPay.Transactions.Api.csproj", "{0EE0D7E8-7A4F-4335-9E90-33966D13CAF9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SynthPay.Contracts", "SynthPay.Contracts\SynthPay.Contracts.csproj", "{23490E8D-09C1-4153-88DB-A8ED18BB41D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SynthPay.Ledger.Worker", "SynthPay.Ledger.Worker\SynthPay.Ledger.Worker.csproj", "{13556020-60E0-464D-A9F0-BAD8B8F819F7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4A1D72B7-B5CF-45E9-A2B0-6DB8D8B79587}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A1D72B7-B5CF-45E9-A2B0-6DB8D8B79587}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A1D72B7-B5CF-45E9-A2B0-6DB8D8B79587}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A1D72B7-B5CF-45E9-A2B0-6DB8D8B79587}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4C50FF5-7C4C-4D6F-815A-7CC53B1E6BE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4C50FF5-7C4C-4D6F-815A-7CC53B1E6BE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4C50FF5-7C4C-4D6F-815A-7CC53B1E6BE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4C50FF5-7C4C-4D6F-815A-7CC53B1E6BE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3238649-92BB-469E-80C9-FC7381FFD1F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3238649-92BB-469E-80C9-FC7381FFD1F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3238649-92BB-469E-80C9-FC7381FFD1F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3238649-92BB-469E-80C9-FC7381FFD1F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0EE0D7E8-7A4F-4335-9E90-33966D13CAF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EE0D7E8-7A4F-4335-9E90-33966D13CAF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EE0D7E8-7A4F-4335-9E90-33966D13CAF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EE0D7E8-7A4F-4335-9E90-33966D13CAF9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23490E8D-09C1-4153-88DB-A8ED18BB41D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23490E8D-09C1-4153-88DB-A8ED18BB41D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23490E8D-09C1-4153-88DB-A8ED18BB41D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23490E8D-09C1-4153-88DB-A8ED18BB41D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13556020-60E0-464D-A9F0-BAD8B8F819F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13556020-60E0-464D-A9F0-BAD8B8F819F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13556020-60E0-464D-A9F0-BAD8B8F819F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13556020-60E0-464D-A9F0-BAD8B8F819F7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8D0CA305-7E89-4238-9528-42584D786CAC}
+	EndGlobalSection
+EndGlobal
