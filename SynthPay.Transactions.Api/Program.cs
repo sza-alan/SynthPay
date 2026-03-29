@@ -23,7 +23,9 @@ builder.Services.AddMediatR(cfg =>
 
 builder.Services.AddValidatorsFromAssembly(typeof(ITransactionRepository).Assembly);
 
-builder.Services.AddDbContext<SynthPayDbContext>(options => options.UseSqlite("Data Source=synthpay.db"));
+builder.Services.AddDbContext<SynthPayDbContext>(options =>
+    options.UseSqlite("Data Source=synthpay.db",
+        b => b.MigrationsAssembly("SynthPay.Transactions.Infrastructure")));
 
 builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
 
@@ -39,7 +41,9 @@ builder.Services.AddMassTransit(x =>
 {
     x.UsingRabbitMq((context, cfg) =>
     {
-        cfg.Host("localhost", "/", h =>
+        var rabbitMqHost = builder.Configuration["RabbitMqHost"] ?? "localhost";
+
+        cfg.Host(rabbitMqHost, "/", h =>
         {
             h.Username("guest");
             h.Password("guest");
@@ -50,11 +54,16 @@ builder.Services.AddMassTransit(x =>
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
+using (var scope = app.Services.CreateScope())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    var db = scope.ServiceProvider.GetRequiredService<SynthPay.Transactions.Infrastructure.Persistence.SynthPayDbContext>();
+
+    db.Database.EnsureDeleted();
+    db.Database.Migrate();
 }
+
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseExceptionHandler();
 app.UseHttpsRedirection();

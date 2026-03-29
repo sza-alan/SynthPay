@@ -10,7 +10,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<LedgerDbContext>(options =>
-    options.UseSqlite("Data Source=ledger.db"));
+    options.UseSqlite("Data Source=ledger.db",
+        b => b.MigrationsAssembly("SynthPay.Ledger.Worker")));
 
 builder.Services.AddMassTransit(x =>
 {
@@ -18,7 +19,9 @@ builder.Services.AddMassTransit(x =>
 
     x.UsingRabbitMq((context, cfg) =>
     {
-        cfg.Host("localhost", "/", h => {
+        var rabbitMqHost = builder.Configuration["RabbitMqHost"] ?? "localhost";
+
+        cfg.Host(rabbitMqHost, "/", h => {
             h.Username("guest");
             h.Password("guest");
         });
@@ -32,11 +35,16 @@ builder.Services.AddMassTransit(x =>
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
+using (var scope = app.Services.CreateScope())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    var db = scope.ServiceProvider.GetRequiredService<SynthPay.Ledger.Worker.Infrastructure.Persistence.LedgerDbContext>();
+
+    db.Database.EnsureDeleted();
+    db.Database.Migrate();
 }
+
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseAuthorization();
 app.MapControllers();

@@ -5,13 +5,39 @@ services:
     image: rabbitmq:3-management-alpine
     container_name: synthpay_rabbitmq
     ports:
-      - "5672:5672"   # Porta de comunicação (AMQP) usada pelo nosso código .NET
-      - "15672:15672" # Porta do painel de administração (Interface Gráfica)
+      - "5672:5672"
+      - "15672:15672"
     environment:
       RABBITMQ_DEFAULT_USER: guest
       RABBITMQ_DEFAULT_PASS: guest
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
+
+  transactions-api:
+    image: synthpay-transactions-api
+    container_name: synthpay_transactions_api
+    build:
+      context: . # O build roda a partir da raiz da solução!
+      dockerfile: SynthPay.Transactions.Api/Dockerfile
+    ports:
+      - "5001:8080" # A porta 5001 do seu PC vai apontar para a 8080 do Docker
+    environment:
+      - RabbitMqHost=rabbitmq # É aqui que injetamos a variável de ambiente apontando para o container acima!
+    depends_on:
+      - rabbitmq # Só sobe a API se o RabbitMQ já estiver rodando
+
+  ledger-api:
+    image: synthpay-ledger-api
+    container_name: synthpay_ledger_api
+    build:
+      context: .
+      dockerfile: SynthPay.Ledger.Worker/Dockerfile
+    ports:
+      - "5002:8080" # A porta 5002 do seu PC vai apontar para a 8080 do Docker
+    environment:
+      - RabbitMqHost=rabbitmq
+    depends_on:
+      - rabbitmq
 
 volumes:
   rabbitmq_data:
