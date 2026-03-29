@@ -3,7 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using SynthPay.Ledger.Worker.Consumers;
 using SynthPay.Ledger.Worker.Infrastructure.Persistence;
 
-var builder = Host.CreateApplicationBuilder(args);
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<LedgerDbContext>(options =>
     options.UseSqlite("Data Source=ledger.db"));
@@ -26,5 +30,15 @@ builder.Services.AddMassTransit(x =>
     });
 });
 
-var host = builder.Build();
-host.Run();
+var app = builder.Build();
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+app.UseAuthorization();
+app.MapControllers();
+
+app.Run();
