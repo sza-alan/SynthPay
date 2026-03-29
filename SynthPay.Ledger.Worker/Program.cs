@@ -1,7 +1,12 @@
 using MassTransit;
+using Microsoft.EntityFrameworkCore;
 using SynthPay.Ledger.Worker.Consumers;
+using SynthPay.Ledger.Worker.Infrastructure.Persistence;
 
 var builder = Host.CreateApplicationBuilder(args);
+
+builder.Services.AddDbContext<LedgerDbContext>(options =>
+    options.UseSqlite("Data Source=ledger.db"));
 
 builder.Services.AddMassTransit(x =>
 {
